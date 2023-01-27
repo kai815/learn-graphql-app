@@ -1,5 +1,6 @@
 import './App.css'
 import { useQuery, gql } from '@apollo/client';
+import { Link } from "react-router-dom";
 
 const LOGIN = gql`
     query {
@@ -18,6 +19,11 @@ function App() {
     <div className="App">
       <h1>Vite + React</h1>
       {data.viewer.login}
+      <p>
+        <Link to={"repositories"}>
+          リポジトリ一覧
+        </Link>
+      </p>
     </div>
   )
 }

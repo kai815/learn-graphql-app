@@ -12,3 +12,13 @@ type PhotoModel {
 type Query {
   allPhotos: [PhotoModel!]
 }
+
+type Mutation {
+  postPhoto(inputPhoto: CreatePhotoDto!): PhotoModel!
+}
+
+input CreatePhotoDto {
+  url: String!
+  name: String!
+  description: String
+}

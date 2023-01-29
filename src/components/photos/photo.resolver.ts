@@ -1,24 +1,13 @@
 import { Args, Query, Resolver } from '@nestjs/graphql';
 import { PhotoModel } from './interfaces/photo.model';
+import { PhotoService } from './photo.service';
 
 @Resolver((of) => PhotoModel)
 export class PhotosResolver {
-  constructor() {}
+  constructor(private photoService: PhotoService) {}
 
   @Query(() => [PhotoModel], { name: 'allPhotos', nullable: true })
   async allPhotos() {
-    return [
-      {
-        id: '1',
-        url: 'NestJS is so good.',
-        name:'photo1',
-        description:'des'
-      },
-      {
-        id: '2',
-        url: 'NestJS is so good.',
-        name:'photo2'
-      },
-    ];
+    return this.photoService.allPhoto()
   }
 }

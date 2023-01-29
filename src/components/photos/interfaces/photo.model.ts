@@ -1,8 +1,8 @@
-import { Field, ObjectType } from '@nestjs/graphql';
+import { Field, ObjectType,ID } from '@nestjs/graphql';
 
 @ObjectType()
 export class PhotoModel {
-  @Field((type) => String)
+  @Field((type) => ID)
   id: string;
 
   @Field((type) => String)

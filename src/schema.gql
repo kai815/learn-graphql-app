@@ -3,7 +3,7 @@
 # ------------------------------------------------------
 
 type PhotoModel {
-  id: String!
+  id: ID!
   url: String!
   name: String!
   description: String

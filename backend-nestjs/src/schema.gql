@@ -9,8 +9,15 @@ type PhotoModel {
   description: String
 }
 
+type UserModel {
+  githubLogin: ID!
+  name: String!
+  avatar: String!
+}
+
 type Query {
   allPhotos: [PhotoModel!]
+  allUsers: [UserModel!]
 }
 
 type Mutation {

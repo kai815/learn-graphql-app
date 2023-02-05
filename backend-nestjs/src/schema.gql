@@ -13,9 +13,18 @@ type PhotoModel {
   id: ID!
   url: String!
   name: String!
+  category: PhotoCategory!
   description: String
   postedBy: UserModel!
   created: String!
+}
+
+enum PhotoCategory {
+  SELFIE
+  PORTRAIT
+  ACTION
+  LANDSCAPE
+  GRAPHIC
 }
 
 type Query {

@@ -2,6 +2,7 @@ import { Module } from '@nestjs/common';
 import { GraphQLModule } from '@nestjs/graphql';
 import { ApolloDriver, ApolloDriverConfig } from '@nestjs/apollo';
 import { PhotosModule } from './components/photos/photos.module';
+import { UsersModule } from './components/users/users.module';
 import * as path from 'path';
 
 @Module({
@@ -12,6 +13,7 @@ import * as path from 'path';
       // sortSchema: true, これするとabcd順?辞書順になる
     }),
     PhotosModule,
+    UsersModule,
   ],
 })
 export class AppModule {}

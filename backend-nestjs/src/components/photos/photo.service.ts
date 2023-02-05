@@ -2,7 +2,7 @@ import { Injectable } from '@nestjs/common';
 import { PhotoModel } from './interfaces/photo.model';
 import { CreatePhotoDto } from './dto/createPhoto.dto';
 
-type Photo = PhotoModel & {userId:string}
+export type Photo = Omit<PhotoModel,'postedBy'> & {userId:string}
 
 @Injectable()
 export class PhotoService {
@@ -21,13 +21,19 @@ export class PhotoService {
       name:'photo2',
       userId:'2'
     },
+    {
+      id: '3',
+      url: 'NestJS is so good.',
+      name:'photo3',
+      userId:'1'
+    },
   ];
 
   // 全件取得のメソッド
-  allPhoto(): PhotoModel[] {
+  allPhoto(): Photo[] {
     return this.photos;
   }
-  findAll({userId}:{userId: string}): PhotoModel[] {
+  findAll({userId}:{userId: string}): Photo[] {
     return this.photos.filter((photo) => photo.userId === userId)
   }
   //保存

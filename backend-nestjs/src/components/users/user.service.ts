@@ -23,5 +23,8 @@ export class UserService {
   allUser(): User[] {
     return this.users;
   }
+  findOne({githubLogin}:{githubLogin:string}):User{
+    return this.users.find(user => user.githubLogin === githubLogin)
+  }
 }
 

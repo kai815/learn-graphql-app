@@ -2,18 +2,19 @@
 # THIS FILE WAS AUTOMATICALLY GENERATED (DO NOT MODIFY)
 # ------------------------------------------------------
 
-type PhotoModel {
-  id: ID!
-  url: String!
-  name: String!
-  description: String
-}
-
 type UserModel {
   githubLogin: ID!
   name: String!
   avatar: String!
   postedPhotos: [PhotoModel!]!
+}
+
+type PhotoModel {
+  id: ID!
+  url: String!
+  name: String!
+  description: String
+  postedBy: UserModel!
 }
 
 type Query {

@@ -13,6 +13,7 @@ type UserModel {
   githubLogin: ID!
   name: String!
   avatar: String!
+  postedPhotos: [PhotoModel!]!
 }
 
 type Query {

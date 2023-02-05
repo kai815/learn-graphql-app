@@ -1,4 +1,5 @@
 import { Field, ObjectType,ID } from '@nestjs/graphql';
+import {PhotoModel} from "@/components/photos/interfaces/photo.model";
 
 @ObjectType()
 export class UserModel {
@@ -10,4 +11,7 @@ export class UserModel {
 
   @Field((type) => String)
   avatar: string;
+
+  @Field((type)=>[PhotoModel],{nullable:true})
+  postedPhotos:PhotoModel[]
 }

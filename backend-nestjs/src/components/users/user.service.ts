@@ -1,9 +1,12 @@
 import { Injectable } from '@nestjs/common';
 import { UserModel } from './interfaces/user.model';
 
+type User  = Omit<UserModel,"postedPhotos">
+
 @Injectable()
 export class UserService {
-  users: UserModel[] = [
+  //DBの代わり
+  users: User[] = [
     {
       githubLogin: '1',
       name:'user1',
@@ -17,7 +20,7 @@ export class UserService {
   ];
 
   // 全件取得のメソッド
-  allUser(): UserModel[] {
+  allUser(): User[] {
     return this.users;
   }
 }

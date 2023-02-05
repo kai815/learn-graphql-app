@@ -17,4 +17,8 @@ export class PhotoModel {
 
   @Field((type)=>UserModel,{nullable:true})
   postedBy:UserModel
+
+  // Dateにしたい気も
+  @Field(()=>String)
+  created:string
 }

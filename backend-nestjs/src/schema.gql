@@ -15,6 +15,7 @@ type PhotoModel {
   name: String!
   description: String
   postedBy: UserModel!
+  created: String!
 }
 
 type Query {

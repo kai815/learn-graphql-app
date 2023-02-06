@@ -27,6 +27,11 @@ enum PhotoCategory {
   GRAPHIC
 }
 
+type AuthModel {
+  token: String!
+  user: UserModel!
+}
+
 type Query {
   allPhotos: [PhotoModel!]
   allUsers: [UserModel!]
@@ -34,6 +39,7 @@ type Query {
 
 type Mutation {
   postPhoto(inputPhoto: CreatePhotoDto!): PhotoModel!
+  gitHubAuth(code: String!): AuthModel!
 }
 
 input CreatePhotoDto {

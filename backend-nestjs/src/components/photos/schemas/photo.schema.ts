@@ -9,7 +9,10 @@ export class Photo {
   name: string;
 
   @Prop()
-  category: number;
+  category: number; //ここnumberにしないとenumとの整合性取れないので注意
+
+  @Prop()
+  url:string;
 
   @Prop()
   description: string;
@@ -22,3 +25,4 @@ export class Photo {
 }
 
 export const PhotoSchema = SchemaFactory.createForClass(Photo);
+

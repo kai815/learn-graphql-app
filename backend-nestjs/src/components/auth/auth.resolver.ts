@@ -10,7 +10,7 @@ export class AuthResolver {
   @Mutation(() => AuthModel, {name:'gitHubAuth'})
   async githubAuth(@Args('code') code:string) {
     const result = await this.authService.requestGithubToken(code)
-    console.log({result})
-    return {token:"token",user:{name:"1"}}
+
+    return {token:result.access_token,user:{name:"1"}}
   }
 }

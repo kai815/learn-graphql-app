@@ -8,6 +8,12 @@ type githubAuthResponse = {
     token_type:string,
     scope:string
 }
+type githubUser = {
+  login:string,
+  avatar_url:string,
+  name:string
+}
+
 
 @Injectable()
 export class AuthService {
@@ -28,12 +34,31 @@ export class AuthService {
           Accept:'application/json'
         }})
       .pipe(map((response:AxiosResponse<githubAuthResponse>) => {
-        console.log({response})
         return response.data
       }))
       .pipe(catchError((error: AxiosError) => {
         console.log({error})
-        throw 'An error happened!';
+        throw 'requestGithubToken An error happened!';
+      }))
+    )
+    return result
+  }
+  async requestGithubUserAccount(token:string){
+    const result =  await lastValueFrom(this.httpService.post(
+      `https://api.github.com/user`,
+      {},
+      {
+        headers: {
+          'Content-Type': 'application/json',
+          Accept:'application/json',
+          Authorization:`token ${token}`
+        }})
+      .pipe(map((response:AxiosResponse<githubUser>) => {
+        return response.data
+      }))
+      .pipe(catchError((error: AxiosError) => {
+        console.log({error})
+        throw 'requestGithubUserAccount An error happened!';
       }))
     )
     return result

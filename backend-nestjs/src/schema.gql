@@ -4,7 +4,7 @@
 
 type UserModel {
   githubLogin: ID!
-  name: String!
+  name: String
   avatar: String!
   postedPhotos: [PhotoModel!]!
 }

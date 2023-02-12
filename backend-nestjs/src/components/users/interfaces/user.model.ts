@@ -6,8 +6,8 @@ export class UserModel {
   @Field((type) => ID)
   githubLogin: string;
 
-  @Field((type) => String)
-  name: string;
+  @Field((type) => String, {nullable:true})
+  name?: string;
 
   @Field((type) => String)
   avatar: string;

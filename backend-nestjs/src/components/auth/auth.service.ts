@@ -13,13 +13,8 @@ export class AuthService {
       client_secret: process.env.CLIENT_SECRET,
       code
     }
-    console.log({body})
     const result =  await lastValueFrom(this.httpService.post(`https://github.com/login/oauth/access_token`,{
-      body:body,
-      headers: {
-        'Content-Type': 'application/json',
-        Accept:'application/json'
-      }
+      ...body,
     }).pipe(map((response) => {
       console.log({response})
       return response.data

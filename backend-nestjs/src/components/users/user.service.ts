@@ -18,12 +18,15 @@ export class UserService {
     return this.userMongoModel.find().exec();
   }
   async findOne({githubLogin}:{githubLogin:string}):Promise<User>{
-    return this.userMongoModel.findOne({githubLogin:githubLogin}).exec();
+    return this.userMongoModel.findOne({githubLogin}).exec();
   }
   async save(inputCreateUser:InputCreateUser):Promise<User>{
     const createUser = new this.userMongoModel({...inputCreateUser})
     ;
     return createUser.save();
+  }
+  async authorizeUser(token:string):Promise<User>{
+    return this.userMongoModel.findOne({token}).exec();
   }
 }
 

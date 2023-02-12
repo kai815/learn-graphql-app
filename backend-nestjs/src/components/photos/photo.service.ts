@@ -22,7 +22,8 @@ export class PhotoService {
       url:inputPhoto.url,
       name:inputPhoto.name,
       category:inputPhoto.category,
-      description:inputPhoto.description
+      description:inputPhoto.description,
+      created:new Date()
     });
     return createPhoto.save();
   }

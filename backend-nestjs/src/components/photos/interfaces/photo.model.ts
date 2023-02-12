@@ -1,5 +1,17 @@
-import { Field, ObjectType,ID } from '@nestjs/graphql';
+import { Field, ObjectType, ID, registerEnumType } from '@nestjs/graphql';
 import {UserModel} from "@/components/users/interfaces/user.model";
+
+export enum PhotoCategory {
+  SELFIE,
+  PORTRAIT,
+  ACTION,
+  LANDSCAPE,
+  GRAPHIC,
+}
+registerEnumType(PhotoCategory,{
+  name:'PhotoCategory',
+})
+
 
 @ObjectType()
 export class PhotoModel {
@@ -11,6 +23,9 @@ export class PhotoModel {
 
   @Field((type) => String)
   name: string;
+
+  @Field((type) => PhotoCategory)
+  category: PhotoCategory;
 
   @Field((type) => String,{ nullable: true })
   description?: string;

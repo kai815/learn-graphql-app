@@ -4,7 +4,7 @@
 
 type UserModel {
   githubLogin: ID!
-  name: String!
+  name: String
   avatar: String!
   postedPhotos: [PhotoModel!]!
 }
@@ -13,9 +13,23 @@ type PhotoModel {
   id: ID!
   url: String!
   name: String!
+  category: PhotoCategory!
   description: String
   postedBy: UserModel!
   created: String!
+}
+
+enum PhotoCategory {
+  SELFIE
+  PORTRAIT
+  ACTION
+  LANDSCAPE
+  GRAPHIC
+}
+
+type AuthModel {
+  token: String!
+  user: UserModel!
 }
 
 type Query {
@@ -25,6 +39,7 @@ type Query {
 
 type Mutation {
   postPhoto(inputPhoto: CreatePhotoDto!): PhotoModel!
+  gitHubAuth(code: String!): AuthModel!
 }
 
 input CreatePhotoDto {

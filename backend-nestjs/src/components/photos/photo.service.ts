@@ -12,6 +12,7 @@ export class PhotoService {
       id: '1',
       url: 'NestJS is so good.',
       name:'photo1',
+      category:1,
       description:'des',
       userId:'1',
       created: "2023-01-09T07:16:47.883+00:00"
@@ -20,6 +21,7 @@ export class PhotoService {
       id: '2',
       url: 'NestJS is so good.',
       name:'photo2',
+      category:2,
       userId:'2',
       created: "2023-01-10T07:16:47.883+00:00"
     },
@@ -27,6 +29,7 @@ export class PhotoService {
       id: '3',
       url: 'NestJS is so good.',
       name:'photo3',
+      category:3,
       userId:'1',
       created: "2023-01-11T07:16:47.883+00:00"
     },

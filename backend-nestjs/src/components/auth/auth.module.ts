@@ -5,6 +5,7 @@ import {UserService} from "@/components/users/user.service";
 import {HttpModule} from "@nestjs/axios";
 import {MongooseModule} from "@nestjs/mongoose";
 import {User, UserSchema} from "@/components/users/schemas/user.schema";
+import { AuthGuard } from '@/components/auth/auth.guard';
 
 @Module({
   imports: [
@@ -15,6 +16,6 @@ import {User, UserSchema} from "@/components/users/schemas/user.schema";
       ]
     )
   ],
-  providers:[AuthResolver,UserService,AuthService]
+  providers:[AuthResolver,UserService,AuthService,AuthGuard]
 })
 export class AuthModule {}

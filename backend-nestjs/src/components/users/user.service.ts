@@ -25,7 +25,11 @@ export class UserService {
     ;
     return createUser.save();
   }
+  //本当はauthserviceがいいかもだけど手っ取り早くuserMongoModelを使いたかったので
   async authorizeUser(token:string):Promise<User>{
+    if(!token){
+      throw 'authorizeUser no token';
+    }
     return this.userMongoModel.findOne({token}).exec();
   }
 }

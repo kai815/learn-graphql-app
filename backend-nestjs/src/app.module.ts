@@ -5,6 +5,7 @@ import { PhotosModule } from './components/photos/photos.module';
 import { UsersModule } from './components/users/users.module';
 import { AuthModule } from './components/auth/auth.module';
 import * as path from 'path';
+import { ConfigModule } from '@nestjs/config';
 
 @Module({
   imports: [
@@ -15,7 +16,8 @@ import * as path from 'path';
     }),
     PhotosModule,
     UsersModule,
-    AuthModule
+    AuthModule,
+    ConfigModule.forRoot(),
   ],
 })
 export class AppModule {}

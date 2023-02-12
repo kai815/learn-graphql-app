@@ -1,30 +1,29 @@
 import { Injectable } from '@nestjs/common';
-import { UserModel } from './interfaces/user.model';
+import { InjectModel } from "@nestjs/mongoose";
+import {User, UserDocument} from "@/components/users/schemas/user.schema";
+import  { Model } from "mongoose";
 
-type User  = Omit<UserModel,"postedPhotos">
+type InputCreateUser = {
+  name: string,
+  githubLogin: string,
+  githubToken: string,
+  avatar:string
+}
 
 @Injectable()
 export class UserService {
-  //DBの代わり
-  users: User[] = [
-    {
-      githubLogin: '1',
-      name:'user1',
-      avatar: 'avatar1.',
-    },
-    {
-      githubLogin: '2',
-      name:'user2',
-      avatar: 'avatar2.',
-    },
-  ];
-
+  constructor(@InjectModel(User.name) private userMongoModel: Model<UserDocument>) {}
   // 全件取得のメソッド
-  allUser(): User[] {
-    return this.users;
+  async allUser(): Promise<User[]> {
+    return this.userMongoModel.find().exec();
   }
-  findOne({githubLogin}:{githubLogin:string}):User{
-    return this.users.find(user => user.githubLogin === githubLogin)
+  async findOne({githubLogin}:{githubLogin:string}):Promise<User>{
+    return this.userMongoModel.findOne({githubLogin:githubLogin}).exec();
+  }
+  async save(inputCreateUser:InputCreateUser):Promise<User>{
+    const createUser = new this.userMongoModel({...inputCreateUser})
+    ;
+    return createUser.save();
   }
 }
 

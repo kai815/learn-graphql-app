@@ -4,9 +4,15 @@ import {PhotoService} from "./photo.service";
 import {UserService} from "@/components/users/user.service";
 import {Photo,PhotoSchema} from "@/components/photos/schemas/photo.schema";
 import {MongooseModule} from "@nestjs/mongoose";
+import {User, UserSchema} from "@/components/users/schemas/user.schema";
 
 @Module({
-  imports: [MongooseModule.forFeature([{ name: Photo.name, schema: PhotoSchema }])],
+  imports: [MongooseModule.forFeature(
+    [
+      { name: Photo.name, schema: PhotoSchema },
+      { name:User.name, schema: UserSchema }
+    ]
+  )],
   providers:[PhotosResolver,PhotoService,UserService]
 })
 export class PhotosModule {}

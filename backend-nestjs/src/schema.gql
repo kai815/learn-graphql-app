@@ -35,6 +35,7 @@ type AuthModel {
 type Query {
   allPhotos: [PhotoModel!]
   allUsers: [UserModel!]
+  me: UserModel
 }
 
 type Mutation {

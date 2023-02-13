@@ -21,8 +21,7 @@ export class PhotosResolver {
   @Mutation(() => PhotoModel)
   @UseGuards(AuthGuard)
   async postPhoto(@Args('inputPhoto') inputPhoto:CreatePhotoDto,@CurrentUser() user:any){
-    console.log({user})
-    return await this.photoService.postPhoto(inputPhoto)
+    return await this.photoService.postPhoto({inputPhoto,currentUserId:user.githubLogin})
   }
   @ResolveField('postedBy', returns =>UserModel)
   async getPostedBy(@Parent() photo: Photo) {

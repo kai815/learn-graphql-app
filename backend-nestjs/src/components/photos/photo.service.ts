@@ -4,6 +4,11 @@ import { InjectModel } from "@nestjs/mongoose";
 import {Photo, PhotoDocument} from "@/components/photos/schemas/photo.schema";
 import  { Model } from "mongoose";
 
+type postPhotoArgs = {
+  inputPhoto:CreatePhotoDto
+  currentUserId:string
+}
+
 @Injectable()
 export class PhotoService {
   constructor(@InjectModel(Photo.name) private photoMongoModel: Model<PhotoDocument>) {}
@@ -17,12 +22,13 @@ export class PhotoService {
     return this.photoMongoModel.find({userId}).exec()
   }
   //保存
-  async postPhoto(inputPhoto:CreatePhotoDto):Promise<Photo>{
+  async postPhoto({inputPhoto,currentUserId}:postPhotoArgs):Promise<Photo>{
     const createPhoto = new this.photoMongoModel({
       url:inputPhoto.url,
       name:inputPhoto.name,
       category:inputPhoto.category,
       description:inputPhoto.description,
+      userId:currentUserId,
       created:new Date()
     });
     return createPhoto.save();

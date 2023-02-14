@@ -35,15 +35,18 @@ type AuthModel {
 type Query {
   allPhotos: [PhotoModel!]
   allUsers: [UserModel!]
+  me: UserModel
 }
 
 type Mutation {
   postPhoto(inputPhoto: CreatePhotoDto!): PhotoModel!
+  addFakeUsers(count: Float!): [UserModel!]
   gitHubAuth(code: String!): AuthModel!
 }
 
 input CreatePhotoDto {
   url: String!
   name: String!
+  category: PhotoCategory!
   description: String
 }

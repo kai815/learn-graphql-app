@@ -11,6 +11,12 @@ export class AuthResolver {
   async githubAuth(@Args('code') code:string) {
     const { access_token } = await this.authService.requestGithubToken(code)
     const resultUser = await this.authService.requestGithubUserAccount(access_token)
+    await this.userService.save({
+      name:resultUser.name,
+      githubLogin:resultUser.login,
+      githubToken:access_token,
+      avatar:resultUser.avatar_url
+    })
     return {
       token:access_token,
       user:{

@@ -1,9 +1,13 @@
 import {Args, Query, Resolver, Mutation, ResolveField, Parent} from '@nestjs/graphql';
+import { Req, UseGuards } from '@nestjs/common';
 import { PhotoModel } from './interfaces/photo.model';
 import { CreatePhotoDto } from './dto/createPhoto.dto';
-import { PhotoService,Photo } from './photo.service';
+import { PhotoService } from './photo.service';
+import {Photo} from './schemas/photo.schema'
 import {UserModel} from "@/components/users/interfaces/user.model";
 import {UserService} from "@/components/users/user.service";
+import {AuthGuard} from "@/components/auth/auth.guard"
+import {CurrentUser} from "@/components/users/currentUser.decorator"
 
 @Resolver((of) => PhotoModel)
 export class PhotosResolver {
@@ -11,15 +15,17 @@ export class PhotosResolver {
 
   @Query(() => [PhotoModel], { name: 'allPhotos', nullable: true })
   async allPhotos() {
-    return this.photoService.allPhoto()
+    const result = await this.photoService.allPhoto()
+    return result
   }
   @Mutation(() => PhotoModel)
-  async postPhoto(@Args('inputPhoto') inputPhoto:CreatePhotoDto){
-    return this.photoService.postPhoto(inputPhoto)
+  @UseGuards(AuthGuard)
+  async postPhoto(@Args('inputPhoto') inputPhoto:CreatePhotoDto,@CurrentUser() user:any){
+    return await this.photoService.postPhoto({inputPhoto,currentUserId:user.githubLogin})
   }
   @ResolveField('postedBy', returns =>UserModel)
   async getPostedBy(@Parent() photo: Photo) {
     const { userId } = photo;
-    return this.userService.findOne({ githubLogin:userId });
+    return this.userService.findOne({githubLogin: userId});
   }
 }

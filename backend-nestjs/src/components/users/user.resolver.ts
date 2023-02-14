@@ -21,6 +21,11 @@ export class UsersResolver {
   async me(@CurrentUser() user:any) {
     return user
   }
+
+  @Mutation(()=>[UserModel],{name:'addFakeUsers',nullable:true})
+  async addFakeUsers(@Args('count') count:number){
+    return await this.userService.addFakeUsers(count)
+  }
   @ResolveField('postedPhotos', returns => [PhotoModel])
   async getPosts(@Parent() user: UserModel) {
     const { githubLogin } = user;

@@ -5,9 +5,12 @@ import {UserService} from "@/components/users/user.service";
 import {Photo,PhotoSchema} from "@/components/photos/schemas/photo.schema";
 import {MongooseModule} from "@nestjs/mongoose";
 import {User, UserSchema} from "@/components/users/schemas/user.schema";
+import {HttpModule} from "@nestjs/axios";
 
 @Module({
-  imports: [MongooseModule.forFeature(
+  imports: [
+    HttpModule,
+    MongooseModule.forFeature(
     [
       { name: Photo.name, schema: PhotoSchema },
       { name:User.name, schema: UserSchema }

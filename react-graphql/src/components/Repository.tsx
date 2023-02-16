@@ -1,6 +1,7 @@
 import React from 'react'
 import { useQuery, gql } from '@apollo/client';
 
+//これはGitHubのgqplの時のやつ
 const SEARCH_REPOSITORY = gql`
     query {
         search(type: REPOSITORY, query: "user:kai815", last: 100) {

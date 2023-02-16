@@ -11,17 +11,17 @@ const LOGIN = gql`
     }
 `;
 function App() {
-  const { loading, error, data } = useQuery(LOGIN);
+  // const { loading, error, data } = useQuery(LOGIN);
 
-  if (loading) return <p>Loading...</p>;
-  if (error) return <p>Error : {error.message}</p>;
+  // if (loading) return <p>Loading...</p>;
+  // if (error) return <p>Error : {error.message}</p>;
   return (
     <div className="App">
       <h1>Vite + React</h1>
-      {data.viewer.login}
+      {/*{data.viewer.login}*/}
       <p>
-        <Link to={"repositories"}>
-          リポジトリ一覧
+        <Link to={"users"}>
+          ユーザー一覧
         </Link>
       </p>
     </div>

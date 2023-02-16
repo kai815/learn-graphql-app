@@ -28,7 +28,7 @@ const ADD_FAKE_USERS_MUTATION = gql`
     }
 `
 export const UserList = ()=> {
-  const { loading, error, data } = useQuery(AllUSER);
+  const { loading, error, data,refetch } = useQuery(AllUSER);
 
   const [addFakeUsers,{loading:updating,error:mutateError,data:mutatedata}] = useMutation(ADD_FAKE_USERS_MUTATION)
   const [count,setCount] = useState(0)
@@ -55,6 +55,7 @@ export const UserList = ()=> {
           console.log({variables:{count:count}})
           addFakeUsers().then(result=>{
             console.log({result})
+            refetch()
           })
         }}>
           add Fake Users

@@ -40,7 +40,10 @@ export const UserList = ()=> {
     const count = Number(countValue)
     console.log({count})
     await addFakeUsers({variables:{count}})
-    await refetch()
+  }
+  const onClick = async (e:React.SyntheticEvent)=>{
+    e.preventDefault();
+    await refetch();
   }
   if (loading) return <p>Loading...</p>;
   if (updating) return <p>Updating...</p>;
@@ -59,6 +62,9 @@ export const UserList = ()=> {
         <input type="number" name="count"/>
         <button type="submit">
           add Fake Users
+        </button>
+        <button onClick={onClick}>
+          refetch user
         </button>
       </form>
     </div>

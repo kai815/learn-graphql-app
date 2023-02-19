@@ -10,6 +10,16 @@ import {
 } from "react-router-dom";
 import {UserList} from "./components/UserList";
 import {UserCacheList} from "./components/UserCacheList";
+import { persistCache } from 'apollo3-cache-persist';
+
+const cache = new InMemoryCache();
+
+persistCache({
+  cache,
+  storage: localStorage,
+}).then(() => {
+  // Continue setting up Apollo Client as usual.
+})
 
 const router = createBrowserRouter([
   {
@@ -45,7 +55,7 @@ const authLink = setContext((_, { headers }) => {
 
 const client = new ApolloClient({
   link: authLink.concat(httpLink),
-  cache: new InMemoryCache()
+  cache
 });
 
 

@@ -83,7 +83,7 @@ export class UserService {
     if(!token){
       throw 'authorizeUser no token';
     }
-    return this.userMongoModel.findOne({token}).exec();
+    return this.userMongoModel.findOne({githubToken:token}).exec();
   }
 }
 

@@ -8,26 +8,37 @@ import {
   createBrowserRouter,
   RouterProvider,
 } from "react-router-dom";
-import {Repository} from "./components/Repository"
-import {RepositoryDetail} from "./components/RepositoryDetail"
+import {UserList} from "./components/UserList";
+import {UserCacheList} from "./components/UserCacheList";
+import { persistCache } from 'apollo3-cache-persist';
+
+const cache = new InMemoryCache();
+
+persistCache({
+  cache,
+  storage: localStorage,
+}).then(() => {
+  // Continue setting up Apollo Client as usual.
+})
+
 const router = createBrowserRouter([
   {
     path: "/",
     element: <App />,
   },
   {
-    path: "/repositories",
-    element:<Repository/>
+    path: "/users",
+    element:<UserList/>
   },
   {
-    path: "/repositories/:repositoryId",
-    element:<RepositoryDetail/>
-  },
+    path:"/users-cache",
+    element:<UserCacheList/>
+  }
 ]);
 
 
 const httpLink = createHttpLink({
-  uri: 'https://api.github.com/graphql',
+  uri: 'http://localhost:4000/graphql',
 });
 
 const authLink = setContext((_, { headers }) => {
@@ -37,14 +48,14 @@ const authLink = setContext((_, { headers }) => {
   return {
     headers: {
       ...headers,
-      authorization: `Bearer ${import.meta.env.VITE_GITHUB_TOKEN}`
+      authorization: localStorage.getItem('token')
     }
   }
 });
 
 const client = new ApolloClient({
   link: authLink.concat(httpLink),
-  cache: new InMemoryCache()
+  cache
 });
 
 

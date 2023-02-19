@@ -71,3 +71,12 @@ Nest is an MIT-licensed open source project. It can grow thanks to the sponsors 
 ## License
 
 Nest is [MIT licensed](LICENSE).
+
+## 必要な設定
+### 設定ファイル
+.envを作成して、必要な情報を書いてください。
+
+1. CLIENT_ID→GitHubのOAuth AppのClientIDです。
+2. CLIENT_SECRET→GitHubのOAuth AppのClient Secretです。
+3. USER_NAME→mongodb atlasで作成したdbのuser nameです。 
+4. PASS→mongodb atlasで作成したdbのpass wordです。

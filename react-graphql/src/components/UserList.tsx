@@ -1,6 +1,7 @@
 import React, {useState} from 'react'
 import {useQuery, gql, useMutation} from '@apollo/client';
 import {UserModel} from "../generated";
+import {Link} from "react-router-dom";
 
 
 
@@ -38,7 +39,6 @@ export const UserList = ()=> {
     };
     const countValue = target.count.value;
     const count = Number(countValue)
-    console.log({count})
     await addFakeUsers({variables:{count}})
   }
   const onClick = async (e:React.SyntheticEvent)=>{
@@ -52,6 +52,9 @@ export const UserList = ()=> {
   console.log({mutatedata})
   return (
     <div>
+      <Link to={"/users-cache"}>
+        キャッシュの実験のユーザー一覧
+      </Link>
       <h1>ユーザー一覧</h1>
       <ul>
         {data?.allUsers.map((user:UserModel,index:number) =>(

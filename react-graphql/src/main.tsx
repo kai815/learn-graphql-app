@@ -9,6 +9,7 @@ import {
   RouterProvider,
 } from "react-router-dom";
 import {UserList} from "./components/UserList";
+import {UserCacheList} from "./components/UserCacheList";
 
 const router = createBrowserRouter([
   {
@@ -19,7 +20,10 @@ const router = createBrowserRouter([
     path: "/users",
     element:<UserList/>
   },
-
+  {
+    path:"/users-cache",
+    element:<UserCacheList/>
+  }
 ]);
 
 

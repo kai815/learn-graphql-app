@@ -19,7 +19,7 @@ const AllUSER = gql`
 `;
 
 export const UserCacheList = ()=> {
-  const { loading, error, data, } = useQuery(AllUSER,{
+  const { loading, error, data, client } = useQuery(AllUSER,{
     fetchPolicy:'cache-only'
   });
 
@@ -35,6 +35,11 @@ export const UserCacheList = ()=> {
           <li key={`n-${index}`}>{user.githubLogin}</li>
         ))}
       </ul>
+      <button onClick={async ()=>{
+        await client.resetStore()
+      }}>
+        cache reset
+      </button>
     </div>
   )
 }

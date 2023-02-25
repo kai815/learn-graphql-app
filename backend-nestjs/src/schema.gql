@@ -50,3 +50,7 @@ input CreatePhotoDto {
   category: PhotoCategory!
   description: String
 }
+
+type Subscription {
+  photoPosted: PhotoModel!
+}

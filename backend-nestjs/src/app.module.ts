@@ -13,14 +13,16 @@ import configuration from '../config/configuration';
   imports: [
     GraphQLModule.forRoot<ApolloDriverConfig>({
       driver: ApolloDriver,
+      installSubscriptionHandlers: true,
+      // こっちが推奨されているけど動いてない
+      // subscriptions: {
+      //   'graphql-ws': true
+      // },
       autoSchemaFile: path.join(process.cwd(), "src/schema.gql"),
       // sortSchema: true, これするとabcd順?辞書順になる
       cors: {
         origin: ['http://localhost:5173','http://127.0.0.1:5173'],
         credentials: true,
-      },
-      subscriptions: {
-        'graphql-ws': true
       },
     }),
     PhotosModule,

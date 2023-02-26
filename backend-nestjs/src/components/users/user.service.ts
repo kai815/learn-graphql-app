@@ -51,7 +51,7 @@ export class UserService {
     return createUser.save();
   }
 
-  async addFakeUsers(count:number):Promise<any>{
+  async addFakeUsers(count:number):Promise<User[]>{
     const { results } = await lastValueFrom(this.httpService.get(
       `https://randomuser.me/api/?results=${count}`,
       {
@@ -67,15 +67,15 @@ export class UserService {
         throw 'addFakeUsers An error happened!';
       }))
     )
-    const result = results.map((fakeUser)=>{
+    const result = Promise.all(results.map(async (fakeUser)=>{
       const createUser = new this.userMongoModel({
         name:`${fakeUser.name.first} ${fakeUser.name.last}`,
         githubLogin: fakeUser.login.username,
         githubToken: fakeUser.login.sha1,
         avatar:fakeUser.picture.thumbnail
       })
-      return createUser.save()
-    })
+      return await createUser.save()
+    }))
     return result
   }
   //本当はauthserviceがいいかもだけど手っ取り早くuserMongoModelを使いたかったので

@@ -25,13 +25,13 @@ export class PhotosResolver {
   async postPhoto(@Args('inputPhoto') inputPhoto:CreatePhotoDto,@CurrentUser() user:any){
     const postPhoto = await this.photoService.postPhoto({inputPhoto,currentUserId:user.githubLogin})
     // 第二引数のproperty名もphotoPostedで合わせる
-    await pubSub.publish('photoPosted', {photoPosted:postPhoto});
+    await pubSub.publish('newPhoto', {newPhoto:postPhoto});
     return postPhoto;
   }
   //メモ：戻り値をPhotoModelじゃなくてPhotoにしてたのでMake sure your class is decorated with an appropriate decorator.のエラーが出てた
-  @Subscription((returns) => PhotoModel,{name:'photoPosted'})
-  photoPosted() {
-    return pubSub.asyncIterator('photoPosted');
+  @Subscription((returns) => PhotoModel,{name:'newPhoto'})
+  newPhoto() {
+    return pubSub.asyncIterator('newPhoto');
   }
   @ResolveField('postedBy', returns =>UserModel)
   async getPostedBy(@Parent() photo: Photo) {

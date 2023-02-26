@@ -52,5 +52,5 @@ input CreatePhotoDto {
 }
 
 type Subscription {
-  photoPosted: PhotoModel!
+  newPhoto: PhotoModel!
 }

@@ -24,7 +24,7 @@ export class PhotosResolver {
   @UseGuards(AuthGuard)
   async postPhoto(@Args('inputPhoto') inputPhoto:CreatePhotoDto,@CurrentUser() user:any){
     const postPhoto = await this.photoService.postPhoto({inputPhoto,currentUserId:user.githubLogin})
-    // 第二引数のproperty名もphotoPostedで合わせる
+    // 第二引数のproperty名もnewPhotoで合わせる
     await pubSub.publish('newPhoto', {newPhoto:postPhoto});
     return postPhoto;
   }

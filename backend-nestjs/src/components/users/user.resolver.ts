@@ -28,13 +28,13 @@ export class UsersResolver {
   @Mutation(()=>[UserModel],{name:'addFakeUsers',nullable:true})
   async addFakeUsers(@Args('count') count:number){
     const result =  await this.userService.addFakeUsers(count)
-    result.forEach( (createdUser)=>{
+    result.forEach((createdUser)=>{
       pubSub.publish('newUser',{newUser:createdUser})
     })
     return result
   }
   @Subscription((returns) => UserModel,{name:'newUser'})
-  photoPosted() {
+  newUser() {
     return pubSub.asyncIterator('newUser');
   }
   @ResolveField('postedPhotos', returns => [PhotoModel])

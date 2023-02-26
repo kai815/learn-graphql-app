@@ -1,4 +1,5 @@
-import { Args, Query, Resolver,Mutation,ResolveField,Parent } from '@nestjs/graphql';
+import {Args, Query, Resolver, Mutation, ResolveField, Parent, Subscription} from '@nestjs/graphql';
+import { PubSub } from "graphql-subscriptions";
 import { UserModel } from './interfaces/user.model';
 import { UserService } from './user.service';
 import {PhotoModel} from "@/components/photos/interfaces/photo.model";
@@ -7,6 +8,8 @@ import {CurrentUser} from "@/components/users/currentUser.decorator";
 import {UseGuards} from "@nestjs/common";
 import {AuthGuard} from "@/components/auth/auth.guard";
 
+
+const pubSub = new PubSub();
 
 @Resolver((of) => UserModel)
 export class UsersResolver {
@@ -24,7 +27,15 @@ export class UsersResolver {
 
   @Mutation(()=>[UserModel],{name:'addFakeUsers',nullable:true})
   async addFakeUsers(@Args('count') count:number){
-    return await this.userService.addFakeUsers(count)
+    const result =  await this.userService.addFakeUsers(count)
+    result.forEach( (createdUser)=>{
+      pubSub.publish('newUser',{newUser:createdUser})
+    })
+    return result
+  }
+  @Subscription((returns) => UserModel,{name:'newUser'})
+  photoPosted() {
+    return pubSub.asyncIterator('newUser');
   }
   @ResolveField('postedPhotos', returns => [PhotoModel])
   async getPosts(@Parent() user: UserModel) {

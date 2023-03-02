@@ -26,7 +26,7 @@ export class PhotoService {
   //保存
   async postPhoto({inputPhoto,currentUserId}:postPhotoArgs):Promise<Photo>{
     const { createReadStream,filename } = await inputPhoto.image;
-    const result = await createReadStream().pipe(createWriteStream(path.join(process.cwd(), `./upload/${filename}`)))
+    const result = await createReadStream().pipe(createWriteStream(path.join(process.cwd(), `./upload/photo/${filename}`)))
     console.log({result})
     const createPhoto = new this.photoMongoModel({
       url:inputPhoto.url,

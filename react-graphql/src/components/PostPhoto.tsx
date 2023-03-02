@@ -71,6 +71,7 @@ export const PostPhoto = ()=> {
         <button type="submit">
           post
         </button>
+        <img src="http://localhost:4000/photo/replication.jpg"/>
       </form>
     </div>
   )

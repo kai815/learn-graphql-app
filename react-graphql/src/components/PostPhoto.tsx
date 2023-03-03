@@ -25,7 +25,6 @@ export const PostPhoto = ()=> {
       name:target.name.value,
       description:target.description.value,
       category:target.category.value,
-      url:"https://test.com",
       image:file
     }
     await postPhoto({variables:{inputPhoto}})
@@ -71,7 +70,6 @@ export const PostPhoto = ()=> {
         <button type="submit">
           post
         </button>
-        <img src="http://localhost:4000/photo/replication.jpg"/>
       </form>
     </div>
   )

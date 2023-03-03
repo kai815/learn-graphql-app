@@ -13,6 +13,7 @@ import {UserList} from "./components/UserList";
 import {UserCacheList} from "./components/UserCacheList";
 import { persistCache } from 'apollo3-cache-persist';
 import {PostPhoto} from "./components/PostPhoto";
+import {PhotoList} from "./components/PhotoList";
 
 const cache = new InMemoryCache();
 
@@ -39,6 +40,10 @@ const router = createBrowserRouter([
   {
     path:"/post-photo",
     element:<PostPhoto/>
+  },
+  {
+    path:"/photo-list",
+    element:<PhotoList/>
   }
 ]);
 

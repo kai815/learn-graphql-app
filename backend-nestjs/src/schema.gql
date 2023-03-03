@@ -45,7 +45,6 @@ type Mutation {
 }
 
 input CreatePhotoDto {
-  url: String!
   name: String!
   category: PhotoCategory!
   description: String

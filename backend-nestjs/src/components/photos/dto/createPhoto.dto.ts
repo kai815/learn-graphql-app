@@ -13,9 +13,6 @@ export interface FileUpload {
 @InputType()
 export class CreatePhotoDto {
   @Field((type) => String)
-  url: string;
-
-  @Field((type) => String)
   name: string;
 
   @Field((type) => PhotoCategory)

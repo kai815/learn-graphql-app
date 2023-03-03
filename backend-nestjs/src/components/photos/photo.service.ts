@@ -29,7 +29,7 @@ export class PhotoService {
     const result = await createReadStream().pipe(createWriteStream(path.join(process.cwd(), `./upload/photo/${filename}`)))
     console.log({result})
     const createPhoto = new this.photoMongoModel({
-      url:inputPhoto.url,
+      url:`http://localhost:4000/photo/${filename}`,
       name:inputPhoto.name,
       category:inputPhoto.category,
       description:inputPhoto.description,

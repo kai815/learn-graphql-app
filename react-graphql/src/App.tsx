@@ -11,6 +11,16 @@ function App() {
           ユーザー一覧
         </Link>
       </p>
+      <p>
+        <Link to={"post-photo"}>
+          写真の投稿
+        </Link>
+      </p>
+      <p>
+        <Link to={"photo-list"}>
+          写真の一覧
+        </Link>
+      </p>
       <AuthorizeUser/>
     </div>
   )

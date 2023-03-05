@@ -13,6 +13,11 @@ import configuration from '../config/configuration';
   imports: [
     GraphQLModule.forRoot<ApolloDriverConfig>({
       driver: ApolloDriver,
+      installSubscriptionHandlers: true,
+      // こっちが推奨されているけど動いてない
+      // subscriptions: {
+      //   'graphql-ws': true
+      // },
       autoSchemaFile: path.join(process.cwd(), "src/schema.gql"),
       // sortSchema: true, これするとabcd順?辞書順になる
       cors: {

@@ -1,4 +1,5 @@
-import {Args, Query, Resolver, Mutation, ResolveField, Parent} from '@nestjs/graphql';
+import {Args, Query, Resolver, Mutation, ResolveField, Parent, Subscription} from '@nestjs/graphql';
+import { PubSub } from "graphql-subscriptions";
 import { Req, UseGuards } from '@nestjs/common';
 import { PhotoModel } from './interfaces/photo.model';
 import { CreatePhotoDto } from './dto/createPhoto.dto';
@@ -9,10 +10,11 @@ import {UserService} from "@/components/users/user.service";
 import {AuthGuard} from "@/components/auth/auth.guard"
 import {CurrentUser} from "@/components/users/currentUser.decorator"
 
+const pubSub = new PubSub();
+
 @Resolver((of) => PhotoModel)
 export class PhotosResolver {
   constructor(private photoService: PhotoService,private userService: UserService) {}
-
   @Query(() => [PhotoModel], { name: 'allPhotos', nullable: true })
   async allPhotos() {
     const result = await this.photoService.allPhoto()
@@ -21,7 +23,15 @@ export class PhotosResolver {
   @Mutation(() => PhotoModel)
   @UseGuards(AuthGuard)
   async postPhoto(@Args('inputPhoto') inputPhoto:CreatePhotoDto,@CurrentUser() user:any){
-    return await this.photoService.postPhoto({inputPhoto,currentUserId:user.githubLogin})
+    const postPhoto = await this.photoService.postPhoto({inputPhoto,currentUserId:user.githubLogin})
+    // 第二引数のproperty名もnewPhotoで合わせる
+    await pubSub.publish('newPhoto', {newPhoto:postPhoto});
+    return postPhoto;
+  }
+  //メモ：戻り値をPhotoModelじゃなくてPhotoにしてたのでMake sure your class is decorated with an appropriate decorator.のエラーが出てた
+  @Subscription((returns) => PhotoModel,{name:'newPhoto'})
+  newPhoto() {
+    return pubSub.asyncIterator('newPhoto');
   }
   @ResolveField('postedBy', returns =>UserModel)
   async getPostedBy(@Parent() photo: Photo) {

@@ -2,8 +2,9 @@ import React from 'react'
 import ReactDOM from 'react-dom/client'
 import App from './App'
 import './index.css'
-import { ApolloClient, createHttpLink, InMemoryCache, ApolloProvider } from '@apollo/client';
+import { ApolloClient, InMemoryCache, ApolloProvider, ApolloLink } from '@apollo/client';
 import { setContext } from '@apollo/client/link/context';
+import { createUploadLink } from "apollo-upload-client";
 import {
   createBrowserRouter,
   RouterProvider,
@@ -11,6 +12,8 @@ import {
 import {UserList} from "./components/UserList";
 import {UserCacheList} from "./components/UserCacheList";
 import { persistCache } from 'apollo3-cache-persist';
+import {PostPhoto} from "./components/PostPhoto";
+import {PhotoList} from "./components/PhotoList";
 
 const cache = new InMemoryCache();
 
@@ -33,11 +36,19 @@ const router = createBrowserRouter([
   {
     path:"/users-cache",
     element:<UserCacheList/>
+  },
+  {
+    path:"/post-photo",
+    element:<PostPhoto/>
+  },
+  {
+    path:"/photo-list",
+    element:<PhotoList/>
   }
 ]);
 
 
-const httpLink = createHttpLink({
+const uploadHttpLink = createUploadLink({
   uri: 'http://localhost:4000/graphql',
 });
 
@@ -53,8 +64,10 @@ const authLink = setContext((_, { headers }) => {
   }
 });
 
+
 const client = new ApolloClient({
-  link: authLink.concat(httpLink),
+  // @ts-ignore<html>Type 'ApolloLink' is not assignable to type 'ApolloLink | RequestHandler'.は解決できてない
+  link: ApolloLink.from([authLink,uploadHttpLink]),
   cache
 });
 

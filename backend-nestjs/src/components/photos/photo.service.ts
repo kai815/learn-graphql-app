@@ -3,6 +3,8 @@ import { CreatePhotoDto } from './dto/createPhoto.dto';
 import { InjectModel } from "@nestjs/mongoose";
 import {Photo, PhotoDocument} from "@/components/photos/schemas/photo.schema";
 import  { Model } from "mongoose";
+import path = require("path");
+import { createWriteStream } from "fs";
 
 type postPhotoArgs = {
   inputPhoto:CreatePhotoDto
@@ -23,8 +25,11 @@ export class PhotoService {
   }
   //保存
   async postPhoto({inputPhoto,currentUserId}:postPhotoArgs):Promise<Photo>{
+    const { createReadStream,filename } = await inputPhoto.image;
+    const result = await createReadStream().pipe(createWriteStream(path.join(process.cwd(), `./upload/photo/${filename}`)))
+    console.log({result})
     const createPhoto = new this.photoMongoModel({
-      url:inputPhoto.url,
+      url:`http://localhost:4000/photo/${filename}`,
       name:inputPhoto.name,
       category:inputPhoto.category,
       description:inputPhoto.description,

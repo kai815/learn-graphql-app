@@ -10,6 +10,7 @@ export type Scalars = {
   Boolean: boolean;
   Int: number;
   Float: number;
+  Upload: any;
 };
 
 export type AuthModel = {
@@ -21,6 +22,7 @@ export type AuthModel = {
 export type CreatePhotoDto = {
   category: PhotoCategory;
   description?: InputMaybe<Scalars['String']>;
+  image: Scalars['Upload'];
   name: Scalars['String'];
   url: Scalars['String'];
 };
@@ -71,6 +73,12 @@ export type Query = {
   allPhotos?: Maybe<Array<PhotoModel>>;
   allUsers?: Maybe<Array<UserModel>>;
   me?: Maybe<UserModel>;
+};
+
+export type Subscription = {
+  __typename?: 'Subscription';
+  newPhoto: PhotoModel;
+  newUser: UserModel;
 };
 
 export type UserModel = {

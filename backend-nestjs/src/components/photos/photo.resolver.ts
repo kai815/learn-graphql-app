@@ -17,6 +17,8 @@ export class PhotosResolver {
   constructor(private photoService: PhotoService,private userService: UserService) {}
   @Query(() => [PhotoModel], { name: 'allPhotos', nullable: true })
   async allPhotos() {
+    // const sleep = ms => new Promise(resolve => setTimeout(resolve, ms))
+    // await sleep(5000);
     const result = await this.photoService.allPhoto()
     return result
   }

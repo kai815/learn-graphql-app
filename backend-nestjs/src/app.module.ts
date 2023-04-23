@@ -8,6 +8,7 @@ import * as path from 'path';
 import { ConfigModule } from '@nestjs/config';
 import { MongooseModule } from '@nestjs/mongoose';
 import configuration from '../config/configuration';
+import {ComplexityPlugin} from "@/plugins/complexityPlugin";
 
 @Module({
   imports: [
@@ -29,7 +30,8 @@ import configuration from '../config/configuration';
     UsersModule,
     AuthModule,
     ConfigModule.forRoot(),
-    MongooseModule.forRoot(configuration().database.host)
+    MongooseModule.forRoot(configuration().database.host),
   ],
+  providers:[ComplexityPlugin]
 })
 export class AppModule {}

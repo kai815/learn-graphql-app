@@ -2,19 +2,14 @@ import React, {useState} from 'react'
 import {useQuery, gql, useMutation} from '@apollo/client';
 import {UserModel} from "../generated";
 import {Link} from "react-router-dom";
+import {UserCard} from "./UserCard";
 
 
 
 const AllUSER = gql`
     query {
         allUsers {
-            name
             githubLogin
-            avatar
-            postedPhotos {
-                name
-                description
-            }
         }
     }
 `;
@@ -58,7 +53,9 @@ export const UserList = ()=> {
       <h1>ユーザー一覧</h1>
       <ul>
         {data?.allUsers.map((user:UserModel,index:number) =>(
-          <li key={`n-${index}`}>{user.githubLogin}</li>
+          <li key={`n-${index}`}>
+            <UserCard userName={user.githubLogin}/>
+          </li>
         ))}
       </ul>
       <form method="post" onSubmit={onSubmit}>

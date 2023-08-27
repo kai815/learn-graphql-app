@@ -54,7 +54,7 @@ export const UserList = ()=> {
       <ul>
         {data?.allUsers.map((user:UserModel,index:number) =>(
           <li key={`n-${index}`}>
-            <UserCard userName={user.githubLogin}/>
+            <UserCard user={user}/>
           </li>
         ))}
       </ul>

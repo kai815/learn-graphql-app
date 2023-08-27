@@ -2,14 +2,15 @@ import React, {useState} from 'react'
 import {useQuery, gql, useMutation} from '@apollo/client';
 import {UserModel} from "../generated";
 import {Link} from "react-router-dom";
-import {UserCard} from "./UserCard";
+import {UserCard,USER_FIELDS} from "./UserCard";
 
 
 
 const AllUSER = gql`
+    ${USER_FIELDS}
     query {
         allUsers {
-            githubLogin
+            ...UserFields
         }
     }
 `;

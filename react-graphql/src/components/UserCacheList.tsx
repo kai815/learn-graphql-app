@@ -2,19 +2,14 @@ import React from 'react'
 import {useQuery, gql} from '@apollo/client';
 import {UserModel} from "../generated";
 import {Link} from "react-router-dom";
-
+import {UserCard,USER_FIELDS} from "./UserCard";
 
 
 const AllUSER = gql`
+    ${USER_FIELDS}
     query {
         allUsers {
-            name
-            githubLogin
-            avatar
-            postedPhotos {
-                name
-                description
-            }
+            ...UserFields
         }
     }
 `;
@@ -36,7 +31,9 @@ export const UserCacheList = ()=> {
       </Link>
       <ul>
         {data?.allUsers.map((user:UserModel,index:number) =>(
-          <li key={`n-${index}`}>{user.githubLogin}</li>
+          <li key={`n-${index}`}>
+            <UserCard user={user}/>
+          </li>
         ))}
       </ul>
       <button onClick={async ()=>{

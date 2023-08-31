@@ -1,8 +1,16 @@
+import {gql} from '@apollo/client';
 import {UserModel} from "../generated";
-type User = {
-  githubLogin: string
-}
 
-export const UserCard = ({user}:{user:User}) =>{
-  return <div>{user.githubLogin}</div>
+export const USER_FIELDS = gql`
+    fragment UserFields on UserModel {
+        githubLogin
+        name
+    }
+`
+
+export const UserCard = ({user}:{user:UserModel}) =>{
+  return <div>
+    <p>Id:{user.githubLogin}</p>
+    <p>Name:{user.name}</p>
+  </div>
 }
